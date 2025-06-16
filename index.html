@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="userApp">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+        .error { color: red; }
+        input.ng-invalid.ng-dirty { border: 1px solid red; }
+    </style>
+</head>
+<body ng-controller="UserController">
+
+    <h2>User Registration</h2>
+
+    <form name="userForm" ng-submit="register(user)" novalidate>
+
+        <label>Name:</label><br>
+        <input type="text" name="name" ng-model="user.name" required />
+        <span class="error" ng-show="userForm.name.$dirty && userForm.name.$error.required">Name is required.</span>
+        <br><br>
+
+        <label>Age:</label><br>
+        <input type="number" name="age" ng-model="user.age" min="18" required />
+        <span class="error" ng-show="userForm.age.$dirty && userForm.age.$error.required">Age is required.</span>
+        <span class="error" ng-show="userForm.age.$dirty && userForm.age.$error.min">Must be at least 18 years old.</span>
+        <br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" ng-model="user.email" required />
+        <span class="error" ng-show="userForm.email.$dirty && userForm.email.$error.required">Email is required.</span>
+        <span class="error" ng-show="userForm.email.$dirty && userForm.email.$error.email">Invalid email address.</span>
+        <br><br>
+
+        <button type="submit" ng-disabled="userForm.$invalid">Register</button>
+
+        <p style="color: green;" ng-if="message">{{ message }}</p>
+    </form>
+
+</body>
+</html>
